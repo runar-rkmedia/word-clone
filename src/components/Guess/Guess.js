@@ -20,7 +20,10 @@ function Guess({ onGuess, ...rest }) {
       alert("Too long!");
       return;
     }
-    onGuess(value.toUpperCase());
+    const ok = onGuess(value.toUpperCase());
+    if (!ok) {
+      return;
+    }
     const input = e.target.querySelector('[name="guess"]');
     if (!input) {
       return;
