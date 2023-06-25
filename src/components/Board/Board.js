@@ -2,14 +2,13 @@ import React from "react";
 import classNames from "class-names";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants.js";
 
-function Board({ guesses = [], answer }) {
+function Board({ guesses = [] }) {
   const empty = new Array(NUM_OF_GUESSES_ALLOWED - guesses.length).fill(
     "     "
   );
   console.log({ guesses });
   return (
     <div className="guess-results">
-      {answer}
       {guesses.map((g) => {
         return (
           <p key={g} className="guess">
