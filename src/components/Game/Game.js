@@ -4,6 +4,7 @@ import { sample } from "../../utils";
 import { WORDS } from "../../data";
 import Guess from "../Guess";
 import Board from "../Board";
+import { checkGuess } from "../../game-helpers";
 
 function createID() {
   return window.crypto?.randomUUID?.() || Math.random();
@@ -20,16 +21,17 @@ function Game() {
     if (guesses.includes(guess)) {
       return false;
     }
+    const g = checkGuess(guess, answer);
 
     setGuesses((s) => {
-      return [...s, guess];
+      return [...s, g];
     });
     return true;
   }
 
   return (
     <div>
-      <Board guesses={[...guesses]} />
+      <Board guesses={[...guesses]} answer={answer} />
       <Guess
         onGuess={handleGuess}
         minLength={5}
