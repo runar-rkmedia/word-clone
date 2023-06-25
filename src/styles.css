@@ -230,3 +230,15 @@ h1 {
     transform: translateY(0%);
   }
 }
+
+[name="guess"] {
+  text-transform: uppercase;
+}
+
+:invalid label {
+  color: red;
+}
+input:invalid {
+  outline: 2px dashed red;
+  color: initial;
+}
