@@ -8,11 +8,11 @@ function Board({ guesses = [] }) {
   );
   return (
     <div className="guess-results">
-      {guesses.map((g) => {
+      {guesses.map((g, i) => {
         return (
-          <p key={g} className="guess">
+          <p key={i} className="guess">
             {g.map((s, j) => (
-              <span key={g + j} className={classNames("cell", s.status)}>
+              <span key={j} className={classNames("cell", s.status)}>
                 {s.letter}
               </span>
             ))}

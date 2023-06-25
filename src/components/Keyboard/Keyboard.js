@@ -12,10 +12,7 @@ function Keyboard({ keyStatuses }) {
             {row.map((key) => {
               return (
                 <div
-                  className={classNames(
-                    "cell",
-                    keyStatuses[key] || "incorrect"
-                  )}
+                  className={classNames("cell", keyStatuses[key] || "unset")}
                   key={key}
                 >
                   {key}

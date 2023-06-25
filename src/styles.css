@@ -265,3 +265,6 @@ input:invalid {
   justify-content: center;
   align-items: center;
 }
+.keyboard .unset {
+  opacity: 0.7;
+}

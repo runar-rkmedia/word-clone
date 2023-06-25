@@ -7,17 +7,14 @@ import Board from "../Board";
 import Keyboard from "../Keyboard";
 import { checkGuess } from "../../game-helpers";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
-
-function createID() {
-  return window.crypto?.randomUUID?.() || Math.random();
-}
-
 // Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
+const ans = sample(WORDS);
 
 function Game() {
+  const [answer, setAnswer] = React.useState(ans);
+  React.useEffect(() => {
+    console.info({ answer });
+  }, [answer]);
   const [guesses, setGuesses] = React.useState([]);
   const [didGuessCorrectly, setDidGuesCorrectly] = React.useState(false);
   function handleGuess(guess) {
@@ -35,6 +32,16 @@ function Game() {
     return true;
   }
 
+  function restart() {
+    setGuesses([]);
+    setDidGuesCorrectly(false);
+    setAnswer(sample(WORDS));
+    document.querySelectorAll("[name]").forEach((el) => {
+      el.value = "";
+      el.focus();
+    });
+  }
+
   const keyStatuses = guesses.reduce((r, g) => {
     for (const gs of g) {
       r[gs.letter] = gs.status;
@@ -45,6 +52,7 @@ function Game() {
   return (
     <div>
       <Board guesses={[...guesses]} />
+      <button onClick={restart}>Restart</button>
       <Guess
         onGuess={handleGuess}
         minLength={5}
@@ -53,7 +61,7 @@ function Game() {
         pattern="^[a-zA-Z]{5}$"
       />
       {didGuessCorrectly && (
-        <div class="happy banner">
+        <div className="happy banner">
           <p>
             <strong>Congratulations!</strong> Got it in{" "}
             <strong>{guesses.length} guesses</strong>.
@@ -61,7 +69,7 @@ function Game() {
         </div>
       )}
       {!didGuessCorrectly && guesses.length >= NUM_OF_GUESSES_ALLOWED && (
-        <div class="sad banner">
+        <div className="sad banner">
           <p>
             Sorry, the correct answer is <strong>{answer}</strong>.
           </p>
