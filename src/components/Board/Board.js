@@ -6,7 +6,6 @@ function Board({ guesses = [] }) {
   const empty = new Array(NUM_OF_GUESSES_ALLOWED - guesses.length).fill(
     "     "
   );
-  console.log({ guesses });
   return (
     <div className="guess-results">
       {guesses.map((g) => {

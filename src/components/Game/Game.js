@@ -4,6 +4,7 @@ import { sample } from "../../utils";
 import { WORDS } from "../../data";
 import Guess from "../Guess";
 import Board from "../Board";
+import Keyboard from "../Keyboard";
 import { checkGuess } from "../../game-helpers";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
@@ -27,13 +28,19 @@ function Game() {
       setDidGuesCorrectly(true);
     }
     const g = checkGuess(guess, answer);
-    console.log(g, answer);
 
     setGuesses((s) => {
       return [...s, g];
     });
     return true;
   }
+
+  const keyStatuses = guesses.reduce((r, g) => {
+    for (const gs of g) {
+      r[gs.letter] = gs.status;
+    }
+    return r;
+  }, {});
 
   return (
     <div>
@@ -60,6 +67,7 @@ function Game() {
           </p>
         </div>
       )}
+      <Keyboard keyStatuses={keyStatuses} />
     </div>
   );
 }
